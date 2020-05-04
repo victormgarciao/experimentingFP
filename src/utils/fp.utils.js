@@ -4,10 +4,10 @@ export const removeFirstItemFrom = drop;
 export const selectFirstItemFrom = first;
 
 
-export function flowAsync(...functionsnsList) {
+export function flowAsync(...functionsList) {
     
     return async function handleResult(...args) {
-        const newFunctionsList = functionsnsList;
+        const newFunctionsList = functionsList;
         const currentFunction = selectFirstItemFrom(newFunctionsList);
 
         const currentResult = await Promise.resolve(currentFunction(...args));
