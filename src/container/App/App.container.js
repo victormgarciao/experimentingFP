@@ -4,11 +4,13 @@ import { flowAsync } from '../../utils/fp.utils';
 import { getPhotosDataFromAPI } from '../../api/unsplash.api';
 
 
-function extractImagesListFromData(tupi) {
-    const { data: { results } } = tupi;
-    return results;
-}
-
+function extractImagesListFromData({
+    data: {
+        results: imagesList,
+    },
+}) {
+    return imagesList;
+};
 
 function handleSearchSubmit({ storeImagesList }) {
     return flowAsync(

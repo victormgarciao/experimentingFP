@@ -1,15 +1,13 @@
-import { isEmpty } from 'lodash';
-
-
 export function flowAsync(...functionsList) {
-    
-    return async function handleResult(...args) {
-        const [ currentFunction, ...nextFunctionsList] = functionsList;
+    return async function runAllFunctionsWithLastResult(args) {
+        let lastResult = args;
 
-        const currentResult = await Promise.resolve(currentFunction(...args));
+        for (let index = 0; index < functionsList.length; index++) {
+            const currentFunction = functionsList[index];
+            lastResult = await Promise.resolve(currentFunction(lastResult));
+        }
 
-        return isEmpty(nextFunctionsList)
-            ? currentResult
-            : flowAsync(...nextFunctionsList)(currentResult);
+        return lastResult;
     };
 };
+
